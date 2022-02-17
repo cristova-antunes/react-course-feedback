@@ -1,0 +1,20 @@
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
+
+export default function FeedbackStats() {
+  const { feedback } = useContext(FeedbackContext);
+
+  let averageRating =
+    feedback.reduce((acc, curr) => {
+      return acc + curr.rating;
+    }, 0) / feedback.length;
+
+  averageRating = averageRating.toFixed(1).replace(/[.,]0$/, "");
+
+  return (
+    <div className="feedback-stats">
+      <h4>{feedback.length} Reviews</h4>
+      {!isNaN(averageRating) && <h4>Average rating: {averageRating}</h4>}
+    </div>
+  );
+}
